@@ -1,0 +1,3 @@
+# GFight
+
+Fight your friends!
