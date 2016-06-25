@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Solve problems by killing your friends!",
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+    "knex": "^0.11.7",
+    "pg": "^6.0.1"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
