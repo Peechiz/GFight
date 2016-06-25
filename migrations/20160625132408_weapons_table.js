@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('weapons', function(table){
-    table.increment();
+    table.increments();
     table.string('weapon');
     table.integer('strength');
   })

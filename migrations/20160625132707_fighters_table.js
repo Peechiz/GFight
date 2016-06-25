@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('fighters', function(table){
-    table.increment();
+    table.increments();
     table.string('slack_name');
     table.integer('user_id').unsigned().index().references('users.id');
     table.integer('weapon_id').unsigned().index().references('weapons.id');
