@@ -7,3 +7,10 @@ router.get('/users', function(req, res){
     res.render('/users/index', {users: result});
   });
 });
+
+router.get('/users/:id', function(req, res){
+  var userId = req.params.id;
+  knex('users').where('id', userId).then(function(result, err){
+    res.render()
+  });
+});
