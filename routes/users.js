@@ -10,7 +10,11 @@ router.get('/users', function(req, res){
 
 router.get('/users/:id', function(req, res){
   var userId = req.params.id;
-  knex('users').where('id', userId).then(function(result, err){
-    res.render()
+  var user = req.body;
+  knex('users').where('id', userId).update({
+    full_name: user.full_name,
+    username: user.username
+  }).then(function(result, err){
+    res.render('/users');
   });
 });
