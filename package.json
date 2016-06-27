@@ -3,10 +3,22 @@
   "version": "1.0.0",
   "description": "Solve problems by killing your friends!",
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.4.2",
+    "express": "^4.14.0",
+    "knex": "^0.11.7",
+    "locus": "^1.2.0",
+    "method-override": "^2.3.6",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "pg": "^6.0.1"
+  },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
