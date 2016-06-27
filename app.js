@@ -5,7 +5,8 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     logger = require('morgan'),
     methodOverride = require('method-override'),
-    passport = require('passport');
+    passport = require('passport'),
+    pg = require('pg');
 
 require('locus');
 
@@ -18,14 +19,15 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'));
 
 
 // routes
 var auth = require('./routes/auth.js');
-var users = require('/routes/users.js');
-var weapons = require('/routes/weapons.js');
+var users = require('./routes/users.js');
+var weapons = require('./routes/weapons.js');
 
 app.use('/auth', auth);
 app.use('/users', users);
