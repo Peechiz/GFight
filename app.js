@@ -3,6 +3,7 @@ var express = require('express'),
     path = require('path');
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
+    cookieSession = require('cookie-session'),
     logger = require('morgan'),
     methodOverride = require('method-override'),
     passport = require('passport'),
