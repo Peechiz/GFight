@@ -21,10 +21,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// routes
 
-var defaultRoute = require('./routes/route.js');
-app.use('/default', defaultRoute);
+// routes
+var auth = require('./routes/auth.js');
+var users = require('/routes/users.js');
+var weapons = require('/routes/weapons.js');
+
+app.use('/auth', auth);
+app.use('/users', users);
+app.use('/weapons', weapons);
+
 
 // start server
 app.listen('9001',() => {
