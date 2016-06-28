@@ -12,6 +12,7 @@ var express = require('express'),
 
 require('locus');
 require('dotenv').load();
+
 // view engine setup
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
@@ -40,8 +41,8 @@ passport.deserializeUser(function(obj, done){
 });
 
 passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: "http://localhost:9001/auth/facebook/callback"
   },function(accessToken, refreshToken, profile, cb){
     User.findOrCreate({facebookId: profile.id}, function(err, user){
