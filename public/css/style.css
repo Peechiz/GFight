@@ -17,10 +17,11 @@ body {
   .sidenav ul {
     padding: 0; }
     .sidenav ul li {
+      padding-top: 5px;
+      height: 40px;
       text-align: center;
       display: block;
-      width: 100%;
-      margin-bottom: 20px; }
+      width: 100%; }
 
 .userbox {
   display: inline-block;
@@ -46,6 +47,9 @@ body {
 
 .lb {
   background-color: #A5E5FE; }
+
+.selected {
+  background-color: #104E65; }
 
 ul {
   font-weight: bold;
@@ -75,7 +79,9 @@ main {
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 20px 50px; }
+  padding: 30px 50px; }
+  .ctn form {
+    width: 300px; }
 
 .splash {
   margin: 50px auto;
