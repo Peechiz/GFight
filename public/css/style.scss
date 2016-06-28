@@ -3,38 +3,125 @@ $darkBlue: #104E65;
 $medBlue: #4593B2;
 $lightBlue: #A5E5FE;
 $brown: #3D352C;
+$navwidth: 170px;
 
 body {
   background-color: $darkBlue;
 }
 
-header {
+.top {
   height: 40px;
-  width: 100%;
   background-color: $medBlue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   font-size: 25px;
-  a {
-    color: black;
-  }
+  font-family: 'museo-sans';
+  font-weight: 500;
+}
 
+.sidenav {
+  font-size: 20px;
+  position: fixed;
+  height: 100%;
+  width: $navwidth;
+  ul {
+    padding: 0;
+    li {
+      padding-top: 5px;
+      height: 40px;
+      text-align: center;
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
+.userbox {
+  display: inline-block;
+  width: 200px;
+  ul {
+    padding-left: 0;
+    li {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.tablebox {
+  margin-left: 50px;
+  display: inline-block;
+  height: 100%;
+  background-color: $gOrange;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.full_width {
+  width: 100%;
+}
+
+.ctr {
+  h3 {
+    text-align: center;
+  }
+  hr {
+    width: 50%;
+    border: 1px solid black;
+  }
+}
+
+.top5 {
+  img {
+    height: 100px;
+    width: 100px;
+  }
+  ol {
+    li:first-of-type {
+      img:first-of-type {
+        height: 120px;
+        width: 120px;
+      }
+    }
+  }
+  .info {
+    display: inline-block;
+  }
+}
+
+.user {
+  font-size: 17px;
 }
 
 .g {
   color: $gOrange;
 }
 
-.splash {
-  margin: 50px auto;
-  width: 60%;
-  font-size: 60px;
-  text-align: center;
+.lb {
+  background-color: $lightBlue;
 }
 
-.lb{
-  color: $lightBlue;
+.selected {
+  background-color: $darkBlue;
+}
+
+ul {
+  font-weight: bold;
+  list-style-type: none;
+}
+
+main {
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  margin-left: $navwidth;
+  ul {
+    margin-top: 10px;
+  }
+}
+
+.avatar {
+  height: 150px;
+  width: 150px;
 }
 
 .slack {
@@ -49,7 +136,16 @@ header {
   display: flex;
   justify-content: center;
   width: 100%;
+  padding: 30px 50px;
+  form {
+    width: 300px;
+  }
 }
-button {
-  margin: 0 auto;
+
+
+.splash {
+  margin: 50px auto;
+  width: 60%;
+  font-size: 60px;
+  text-align: center;
 }
