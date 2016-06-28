@@ -33,9 +33,9 @@ router.get('/:id/edit', loggedInUser, function(req, res){
 router.post('/', function(req, res){
   var user = req.body;
   Users.insert({
-    full_name: user.full_name;
-    username: user.username;
-    avatar_url: user.avatar_url;
+    full_name: user.full_name,
+    username: user.username,
+    avatar_url: user.avatar_url
   }).then(function(result, err){
     res.redirect('/users')
   })
@@ -49,7 +49,7 @@ router.put('/:id', function(req, res){
     Users.where('id', userId).update({
       full_name: user.full_name,
       username: user.username,
-      avatar_url: user.avatar_url.
+      avatar_url: user.avatar_url,
       password: hash
     }).then(function(result, err){
       res.redirect('/profile')
