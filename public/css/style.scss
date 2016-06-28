@@ -55,6 +55,38 @@ body {
   border-radius: 10px;
 }
 
+.full_width {
+  width: 100%;
+}
+
+.ctr {
+  h3 {
+    text-align: center;
+  }
+  hr {
+    width: 50%;
+    border: 1px solid black;
+  }
+}
+
+.top5 {
+  img {
+    height: 100px;
+    width: 100px;
+  }
+  ol {
+    li:first-of-type {
+      img:first-of-type {
+        height: 120px;
+        width: 120px;
+      }
+    }
+  }
+  .info {
+    display: inline-block;
+  }
+}
+
 .user {
   font-size: 17px;
 }

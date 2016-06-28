@@ -39,6 +39,24 @@ body {
   padding: 15px;
   border-radius: 10px; }
 
+.full_width {
+  width: 100%; }
+
+.ctr h3 {
+  text-align: center; }
+.ctr hr {
+  width: 50%;
+  border: 1px solid black; }
+
+.top5 img {
+  height: 100px;
+  width: 100px; }
+.top5 ol li:first-of-type img:first-of-type {
+  height: 120px;
+  width: 120px; }
+.top5 .info {
+  display: inline-block; }
+
 .user {
   font-size: 17px; }
 
