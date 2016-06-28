@@ -8,6 +8,8 @@ exports.up = function(knex, Promise) {
     table.integer('losses');
     table.integer('money');
     table.string('avatar_url');
+    table.string('password');
+    table.boolean('is_admin').defaultTo(false);
   });
 };
 
