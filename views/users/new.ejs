@@ -1,0 +1,44 @@
+
+  <% include ../partials/head %>
+
+
+  <div class="ctn">
+    <form class="ui big form" action="/users" method="POST">
+
+      <div class="field">
+        <label for="username">Username</label>
+        <div class="ui left icon input">
+          <input name="username" id="username" type="text" placeholder="Username">
+          <i class="user icon"></i>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="full_name">Full Name</label>
+        <div class="ui left icon input">
+          <input name="full_name" id="full_name" type="text" placeholder="Full Name">
+          <i class="write icon"></i>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="avatar_url">Avatar URL</label>
+        <div class="ui left icon input">
+          <input name="avatar_url" id="avatar_url" type="text" placeholder="http://www.example.com/image.jpg">
+          <i class="photo icon"></i>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="ui left icon input">
+          <input name="password" id="password" type="password">
+          <i class="lock icon"></i>
+        </div>
+      </div>
+
+      <input type="submit" value="Create Account" class="ui blue submit button" >
+    </form>
+  </div>
+
+<% include ../partials/tail %>
