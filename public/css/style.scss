@@ -3,38 +3,86 @@ $darkBlue: #104E65;
 $medBlue: #4593B2;
 $lightBlue: #A5E5FE;
 $brown: #3D352C;
+$navwidth: 170px;
 
 body {
   background-color: $darkBlue;
 }
 
-header {
+.top {
   height: 40px;
-  width: 100%;
   background-color: $medBlue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   font-size: 25px;
-  a {
-    color: black;
-  }
+}
 
+.sidenav {
+  font-size: 20px;
+  position: fixed;
+  height: 100%;
+  width: $navwidth;
+  ul {
+    padding: 0;
+    li {
+      text-align: center;
+      display: block;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.userbox {
+  display: inline-block;
+  width: 200px;
+  ul {
+    padding-left: 0;
+    li {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.tablebox {
+  margin-left: 50px;
+  display: inline-block;
+  height: 100%;
+  background-color: $gOrange;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.user {
+  font-size: 17px;
 }
 
 .g {
   color: $gOrange;
 }
 
-.splash {
-  margin: 50px auto;
-  width: 60%;
-  font-size: 60px;
-  text-align: center;
+.lb {
+  background-color: $lightBlue;
 }
 
-.lb{
-  color: $lightBlue;
+ul {
+  font-weight: bold;
+  list-style-type: none;
+}
+
+main {
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  margin-left: $navwidth;
+  ul {
+    margin-top: 10px;
+  }
+}
+
+.avatar {
+  height: 150px;
+  width: 150px;
 }
 
 .slack {
@@ -50,4 +98,12 @@ header {
   justify-content: center;
   width: 100%;
   padding: 20px 50px;
+}
+
+
+.splash {
+  margin: 50px auto;
+  width: 60%;
+  font-size: 60px;
+  text-align: center;
 }
