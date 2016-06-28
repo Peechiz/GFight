@@ -7,7 +7,7 @@ function loggedInUser(req, res, next){
   if(req.session.userId){
     next();
   }else{
-    req.redirect('/signin');
+    req.redirect('users/signin');
   }
 }
 
@@ -30,9 +30,50 @@ router.get('/:id/edit', loggedInUser, function(req, res){
   });
 });
 
-router.put('/:id', function(req, res){
-
+router.post('/', function(req, res){
+  var user = req.body;
+  Users.insert({
+    full_name: user.full_name;
+    username: user.username;
+    avatar_url: user.avatar_url;
+  }).then(function(result, err){
+    res.redirect('/users')
+  })
 })
+
+router.put('/:id', function(req, res){
+  var userId = req.params.id;
+  var user = req.body;
+  if(user.password.length >= 8){
+    var hash = bcrypt.hashSync(user.password, 10);
+    Users.where('id', userId).update({
+      full_name: user.full_name,
+      username: user.username,
+      avatar_url: user.avatar_url.
+      password: hash
+    }).then(function(result, err){
+      res.redirect('/profile')
+    });
+  }else {
+    res.redirect('/users')
+  };
+});
+
+router.get('/:id', loggedInUser, function(req, res){
+  var userId = req.params.id;
+  var authId = req.sessions.userId;
+  Users.where('id', authId).first().then(function(adminUser, err){
+    var adminUser = adminUser.admin;
+    Users.where('id', userId).first().then(function(result, err){
+      var user = results;
+      if(userId === authId || adminUser){
+        res.render('users/profile', {user: user});
+      }else{
+        res.redirect('users/signin');
+      };
+    });
+  })
+});
 
 router.delete('/:id', loggedInUser, function(req, res){
   var userId = req.params.id;
@@ -41,25 +82,13 @@ router.delete('/:id', loggedInUser, function(req, res){
     var user = results;
     if(userId === authId || user.admin){
       Users.where('id', userId).first().del().then(function(result, err){
-        res.render('users');
-      })
+        req.session=null;
+        res.render('users/new');
+      });
     }else{
       res.send('You are not authorized');
-    }
+    };
   });
-});
-
-router.get('/:id', loggedInUser, function(req, res){
-  var userId = req.params.id;
-  var authId = req.sessions.userId;
-  Users.where('id', userId).first().then(function(result, err){
-    var user = results;
-    if(userId === authId || user.admin){
-      res.render('users/profile', {user: user});
-    }else{
-      res.redirect('signin');
-    }
-  })
 });
 
 module.exports = router;
