@@ -13,7 +13,7 @@ function loggedInUser(req, res, next){
 
 router.get('/', function(req, res){
   Users.then(function(result, err){
-    res.render('/users/index', {users: result});
+    res.render('/users/home', {users: result});
   });
 });
 
@@ -32,9 +32,11 @@ router.get('/:id/edit', loggedInUser, function(req, res){
 
 router.post('/', function(req, res){
   var user = req.body;
+  let hash = bcrypt.hashSync(user.password, 10);
   Users.insert({
     full_name: user.full_name,
     username: user.username,
+    password: hash,
     avatar_url: user.avatar_url
   }).then(function(result, err){
     res.redirect('/users')
