@@ -7,7 +7,7 @@ function loggedInUser(req, res, next){
   if(req.session.userId){
     next();
   }else{
-    req.redirect('users/signin');
+    res.redirect('users/signin');
   }
 }
 
@@ -37,7 +37,10 @@ router.post('/', function(req, res){
     full_name: user.full_name,
     username: user.username,
     password: hash,
-    avatar_url: user.avatar_url
+    avatar_url: user.avatar_url,
+    wins: 0,
+    losses: 0,
+    money: 20
   }).then(function(result, err){
     res.redirect('/users')
   })
@@ -61,20 +64,32 @@ router.put('/:id', function(req, res){
   };
 });
 
-router.get('/:id', loggedInUser, function(req, res){
+router.get('/:id', /*loggedInUser,*/ function(req, res){
   var userId = req.params.id;
-  var authId = req.sessions.userId;
-  Users.where('id', authId).first().then(function(adminUser, err){
-    var adminUser = adminUser.admin;
-    Users.where('id', userId).first().then(function(result, err){
-      var user = results;
-      if(userId === authId || adminUser){
-        res.render('users/profile', {user: user});
-      }else{
-        res.redirect('users/signin');
-      };
-    });
-  })
+  // var authId = req.sessions.userId;
+  Users.where('id', userId).first().then(function(result, err){
+    var user = result;
+    console.log('retrieved user:',user);
+    // if(userId === authId || adminUser){
+    //   res.render('users/profile', {user: user});
+    // }else{
+    //   res.redirect('users/signin');
+    // };
+    knex('users_fighters')
+      .join('fighters','users_fighters.fighter_id','=','fighters.id')
+      .where('users_fighters.user_id',16)
+      .innerJoin('fighters_weapons','fighters.id','=','fighters_weapons.fighter_id')
+      .innerJoin('weapons','weapons.id','=','fighters_weapons.weapon_id')
+      .then(fighters => {
+        console.log(fighters)
+        res.render('users/profile', {user:user,fighters:fighters})
+      })
+
+  });
+  // TODO make an Admin function
+  // Users.where('id', authId).first().then(function(adminUser, err){
+  //   var adminUser = adminUser.admin;
+  // })
 });
 
 router.delete('/:id', loggedInUser, function(req, res){

@@ -40,24 +40,24 @@ passport.deserializeUser(function(obj, done){
   dont(null, obj);
 });
 
-passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_APP_ID,
-    clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:9001/auth/facebook/callback"
-  },function(accessToken, refreshToken, profile, cb){
-    User.findOrCreate({facebookId: profile.id}, function(err, user){
-      return cb(err, user);
-    })
-  }
-}))
+// passport.use(new FacebookStrategy({
+//     clientID: process.env.FACEBOOK_APP_ID,
+//     clientSecret: process.env.FACEBOOK_APP_SECRET,
+//     callbackURL: "http://localhost:9001/auth/facebook/callback"
+//   },function(accessToken, refreshToken, profile, cb){
+//     User.findOrCreate({facebookId: profile.id}, function(err, user){
+//       return cb(err, user);
+//     })
+//   })
+// }))
 
 
 // routes
-var auth = require('./routes/auth.js');
+//var auth = require('./routes/auth.js');
 var users = require('./routes/users.js');
 var weapons = require('./routes/weapons.js');
 
-app.use('/auth', auth);
+//app.use('/auth', auth);
 app.use('/users', users);
 app.use('/weapons', weapons);
 
