@@ -10,12 +10,12 @@
   </nav>
   <main>
     <div class="userbox">
-      <img class="avatar" src="http://placecage.com/gif/150/150">
+      <img class="avatar" src="<%= user.avatar_url %>">
       <ul class="user">
-        <li>User:</li>
-        <li>Wins:</li>
-        <li>Losses:</li>
-        <li>Gold:</li>
+        <li><%= user.username%></li>
+        <li>Wins: <%= user.wins %></li>
+        <li>Losses: <%= user.losses%></li>
+        <li>Money: $<%= user.money %></li>
       </ul>
     </div>
     <div class="tablebox">
@@ -28,46 +28,25 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="center aligned">
-              <a class="ui big image label">
-                <img src="http://fillmurray.com/50/50">
-                Dax
-              </a>
-            </td>
-            <td>
-              Axe body spray
-            </td>
-            <td>
-              +1
-            </td>
-            <td>
-              Wins: 5
-            </td>
-            <td>
-              <button class="ui button">FIGHT!</button>
-            </td>
-          </tr>
-          <tr>
-            <td class="center aligned">
-              <a class="ui big image label">
-                <img src="http://fillmurray.com/50/50">
-                Dax
-              </a>
-            </td>
-            <td>
-              Axe body spray
-            </td>
-            <td>
-              +1
-            </td>
-            <td>
-              Wins: 5
-            </td>
-            <td>
-              <button class="ui button">FIGHT!</button>
-            </td>
-          </tr>
+          <% fighters.forEach(fighter=>{ %>
+            <tr>
+              <td class="center aligned">
+                <label class="ui big image label">
+                  <img src="<%= fighter.img_url %>">
+                  <%= fighter.slack_name %>
+                </label>
+              </td>
+              <td>
+                <%= fighter.weapon %>
+              </td>
+              <td>
+                <%= fighter.strength %>
+              </td>
+              <td>
+                <button class="ui button">FIGHT!</button>
+              </td>
+            </tr>
+          <% }) %>
         </tbody>
       </table>
       <button class="ui button">Buy Fighter $100</button>
