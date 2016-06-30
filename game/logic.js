@@ -1,3 +1,5 @@
+"use strict";
+
 var knex = require('../db/knex');
 
 // Player always receives random fighter
@@ -142,7 +144,7 @@ var game = {
         // attacker win
         return {
           winner: user1,
-          loser: user2
+          loser: user2,
           dead: user2_fighter,
           alive: user1_fighter
         };
@@ -222,12 +224,12 @@ var game = {
             })
             .then(result2 => {
               console.log(result2);
-              resolve(return true)
+              resolve(true)
             })
           })
         }
         else {
-          resolve(return false)
+          resolve(false)
         }
 
       })
@@ -248,7 +250,7 @@ var game = {
       // assign new fighter
       var newFighter = new Promise((resolve,reject)=>{
         resolve(
-          this.getFighter(fighter.loser);
+          this.getFighter(fighter.loser)
         )
       })
 

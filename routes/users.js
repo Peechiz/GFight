@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var router = express.Router();
 var knex = require('../db/knex');
@@ -12,9 +14,9 @@ function loggedInUser(req, res, next){
 }
 
 router.get('/', function(req, res){
-  Users.then(function(result, err){
-    res.render('/users/home', {users: result});
-  });
+  // Users.then(function(result, err){
+    res.render('users/home'/*, {users: result}*/);
+  // });
 });
 
 router.get('/new', function(req, res){

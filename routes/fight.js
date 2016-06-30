@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var router = express.Router();
 var knex = require('../db/knex');
@@ -7,6 +9,13 @@ var game = require('../game/logic');
 router.get('/', function(req, res){
   knex('users').then(function(result, err){
     res.render('fight/select', {user: result});
+  })
+})
+
+router.get('/:id/win', function(req, res){
+  userId = req.params.id;
+  knex('users').where('id', userId).then(function(result, err){
+    res.render('fight/win', {user: result});
   })
 })
 
