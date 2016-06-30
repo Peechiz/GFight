@@ -70,17 +70,18 @@ router.get('/:id', /*loggedInUser,*/ function(req, res){
   Users.where('id', userId).first().then(function(result, err){
     var user = result;
     console.log('retrieved user:',user);
-    // if(userId === authId || adminUser){
-    //   res.render('users/profile', {user: user});
-    // }else{
-    //   res.redirect('users/signin');
-    // };
-    knex('users_fighters')
-      .join('fighters','users_fighters.fighter_id','=','fighters.id')
-      .where('users_fighters.user_id',16)
-      .innerJoin('fighters_weapons','fighters.id','=','fighters_weapons.fighter_id')
-      .innerJoin('weapons','weapons.id','=','fighters_weapons.weapon_id')
+
+    knex.raw('SELECT f.id, f.slack_name, f.img_url, w.weapon, w.strength '
+            + 'FROM users_fighters as uf '
+            + 'LEFT JOIN fighters as f '
+            + 'ON uf.fighter_id=f.id '
+            + 'LEFT JOIN fighters_weapons as fw '
+            + 'ON f.id=fw.fighter_id '
+            + 'LEFT JOIN weapons as w '
+            + 'ON w.id=fw.weapon_id '
+            + `WHERE uf.user_id=${userId}`)
       .then(fighters => {
+        fighters = fighters.rows
         console.log(fighters)
         res.render('users/profile', {user:user,fighters:fighters})
       })

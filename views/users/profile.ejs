@@ -43,13 +43,15 @@
                 <%= fighter.strength %>
               </td>
               <td>
-                <button class="ui button">FIGHT!</button>
+                <a class="ui button" href="/fight/<%= fighter.user_id %>/<%= fighter.fighter_id %>">FIGHT!</a>
               </td>
             </tr>
           <% }) %>
         </tbody>
       </table>
-      <button class="ui button">Buy Fighter $100</button>
+      <form action="/fight/buy" method="POST">
+        <input class="ui button" type="submit" value="Buy Fighter: $100">
+      </form>
     </div>
   </main>
 
