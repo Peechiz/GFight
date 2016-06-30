@@ -1,4 +1,4 @@
-<% include ../partials/head %>
+<% include ../partials/fight_head %>
 
 <nav class="sidenav lb">
   <ul>
@@ -13,41 +13,33 @@
     <div class="center aligned three column row">
       <div class="six wide column">
         <div class="userbox">
-          <h2>PEECHIZ</h2>
-          <img class="avatar" src="http://www.fillmurray.com/200/200">
+          <h2><%= user1.username %></h2>
+          <img class="avatar" src="<%= user1.avatar_url %>">
           <ul class="user">
-            <li>Wins: 4</li>
-            <li>Losses: 5</li>
-            <li>Money: $1000</li>
-          </ul>
-        </div>
-      </div>
-      <div class="six wide column">
-        <div class="userbox">
-          <h2>CASTRO</h2>
-          <img class="avatar" src="http://www.fillmurray.com/200/200">
-          <ul class="user">
-            <li>Wins: 1</li>
-            <li>Losses: 4</li>
-            <li>Money: $20</li>
+            <li>Wins: <%= user1.wins %></li>
+            <li>Losses: <%= user1.losses %></li>
+            <li>Money: $<%= user1.money %></li>
+            <li>
+              <label class="ui big image label">
+                <img src="<%= userFighter1.img_url %>">
+                <%= userFighter1.slack_name %>
+              </label>
+            </li>
           </ul>
         </div>
       </div>
       <div class="four wide column">
-        <form action="/" method="POST">
+        <form class="ui form" action="/fight/<%= user1.id %>/<%= userFighter1.id %>" method="post">
           <label>Choose your loser</label>
-          <input name="opponents" list="opponents">
+          <input name="opponent" list="opponents">
           <datalist id="opponents">
-            <% user.forEach(function(user){ %>
-              <option value=<%=user.username%>>
+            <% users.forEach(function(user){ %>
+              <option value="<%=user.id %>"><%= user.username%></option>
             <% }); %>
           </datalist>
-          <input type="submit" name="opponents" value="Submit">
+          <input type="submit" value="Submit">
         </form>
       </div>
-    </div>
-    <div class="center aligned twelve wide column">
-      <input class="ui button fightbutton" type="submit" name="name" value="FIGHT!">
     </div>
   </div>
 </main>
