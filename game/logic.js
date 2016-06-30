@@ -45,11 +45,11 @@ var game = {
       .first()
       .then(result => {
         num = parseInt(result.count)
-
-        var randomID = Math.ceil(Math.random() * num);
+        console.log('Number of weapons:',num);
+        var randomID = Math.ceil(Math.random() * num)+110;
 
         console.log('Assigning weapon to:',fighter_id,'weapon:',randomID);
-        knex('fighters').where({'id':fighter_id}).update({
+        knex('fighters').where('id',fighter_id).update({
           weapon_id: randomID
         }).then(result2 => {
           console.log(result2);
@@ -101,7 +101,10 @@ var game = {
       .where({user_id:opponent_id})
       .then( result => {
         var numFighters = result.length;
+        console.log(opponent_id,'has',numFighters,'fighter(s)');
         var randomFighter = Math.floor(Math.random() * numFighters);
+        console.log(result);
+        console.log('choosing',randomFighter,'index: fighter_id',result[randomFighter].fighter_id);
         return result[randomFighter].fighter_id
       })
   },
@@ -131,6 +134,7 @@ var game = {
 
       if (outcome > f1str){
         // attacker loss
+        console.log('LOSS');
         return {
           winner: user2,
           loser: user1,
@@ -140,6 +144,7 @@ var game = {
       }
       else {
         // attacker win
+        console.log('WIN');
         return {
           winner: user1,
           loser: user2,
