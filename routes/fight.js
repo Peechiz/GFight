@@ -14,7 +14,7 @@ router.get('/', function(req, res){
 
 router.get('/:id/win', function(req, res){
   userId = req.params.id;
-  knex('users').where('id', userId).then(function(result, err){
+  knex('users').where('id', userId).first().then(function(result, err){
     res.render('fight/win', {user: result});
   })
 })
