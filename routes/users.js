@@ -75,10 +75,8 @@ router.get('/:id', /*loggedInUser,*/ function(req, res){
             + 'FROM users_fighters as uf '
             + 'LEFT JOIN fighters as f '
             + 'ON uf.fighter_id=f.id '
-            + 'LEFT JOIN fighters_weapons as fw '
-            + 'ON f.id=fw.fighter_id '
             + 'LEFT JOIN weapons as w '
-            + 'ON w.id=fw.weapon_id '
+            + 'ON w.id=f.weapon_id '
             + `WHERE uf.user_id=${userId}`)
       .then(fighters => {
         fighters = fighters.rows
