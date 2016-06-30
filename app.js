@@ -56,10 +56,12 @@ passport.deserializeUser(function(obj, done){
 //var auth = require('./routes/auth.js');
 var users = require('./routes/users.js');
 var weapons = require('./routes/weapons.js');
+var fight = require('./routes/fight.js');
 
 //app.use('/auth', auth);
 app.use('/users', users);
 app.use('/weapons', weapons);
+app.use('/fight', fight);
 
 
 

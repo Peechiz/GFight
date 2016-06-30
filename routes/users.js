@@ -32,7 +32,7 @@ router.get('/:id/edit', loggedInUser, function(req, res){
 
 router.post('/', function(req, res){
   var user = req.body;
-  let hash = bcrypt.hashSync(user.password, 10);
+  var hash = bcrypt.hashSync(user.password, 10);
   Users.insert({
     full_name: user.full_name,
     username: user.username,

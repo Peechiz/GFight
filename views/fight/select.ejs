@@ -1,0 +1,64 @@
+<% include ../partials/head %>
+
+<nav class="sidenav lb">
+  <ul>
+    <li><a href="#" class="item">Home</a></li>
+    <li><a href="#" class="item">About</a></li>
+    <li><a href="#" class="item">Profile</a></li>
+    <li><a href="#" class="item">Logout</a></li>
+  </ul>
+</nav>
+<main>
+  <div class="ui grid full_width">
+    <div class="center aligned three column row">
+      <div class="six wide column">
+        <h2>PEECHIZ</h2>
+        <div class="userbox">
+          <img class="avatar" src="http://www.fillmurray.com/200/200">
+          <ul class="user">
+            <li>Wins: 4</li>
+            <li>Losses: 5</li>
+            <li>Money: $1000</li>
+          </ul>
+        </div>
+      </div>
+      <div class="six wide column">
+        <h2>CASTRO</h2>
+        <div class="userbox">
+          <img class="avatar" src="http://www.fillmurray.com/200/200">
+          <ul class="user">
+            <li>Wins: 1</li>
+            <li>Losses: 4</li>
+            <li>Money: $20</li>
+          </ul>
+        </div>
+      </div>
+      <div class="four wide column">
+        <label>Choose your loser
+          <br>
+        <input name="opponents" list="opponents"></label>
+        <datalist id="opponents">
+          <option value="Bill">
+          <option value="Castro">
+          <option value="Price">
+          <option value="Aaron">
+          <option value="Erika">
+          <option value="Karen">
+          <option value="Zubair">
+          <option value="Marc">
+          <option value="Robert">
+        </datalist>
+        <input type="submit" name="opponents" value="Submit">
+      </div>
+    </div>
+    <div class="four wide column">
+      <input class="ui button" type="submit" name="name" value="FIGHT!">
+    </div>
+  </div>
+</main>
+
+
+
+
+
+<% include ../partials/tail %>
