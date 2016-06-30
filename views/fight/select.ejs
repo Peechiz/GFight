@@ -12,8 +12,8 @@
   <div class="ui grid full_width">
     <div class="center aligned three column row">
       <div class="six wide column">
-        <h2>PEECHIZ</h2>
         <div class="userbox">
+          <h2>PEECHIZ</h2>
           <img class="avatar" src="http://www.fillmurray.com/200/200">
           <ul class="user">
             <li>Wins: 4</li>
@@ -23,8 +23,8 @@
         </div>
       </div>
       <div class="six wide column">
-        <h2>CASTRO</h2>
         <div class="userbox">
+          <h2>CASTRO</h2>
           <img class="avatar" src="http://www.fillmurray.com/200/200">
           <ul class="user">
             <li>Wins: 1</li>
@@ -34,25 +34,20 @@
         </div>
       </div>
       <div class="four wide column">
-        <label>Choose your loser
-          <br>
-        <input name="opponents" list="opponents"></label>
-        <datalist id="opponents">
-          <option value="Bill">
-          <option value="Castro">
-          <option value="Price">
-          <option value="Aaron">
-          <option value="Erika">
-          <option value="Karen">
-          <option value="Zubair">
-          <option value="Marc">
-          <option value="Robert">
-        </datalist>
-        <input type="submit" name="opponents" value="Submit">
+        <form action="/" method="POST">
+          <label>Choose your loser</label>
+          <input name="opponents" list="opponents">
+          <datalist id="opponents">
+            <% user.forEach(function(user){ %>
+              <option value=<%=user.username%>>
+            <% }); %>
+          </datalist>
+          <input type="submit" name="opponents" value="Submit">
+        </form>
       </div>
     </div>
-    <div class="four wide column">
-      <input class="ui button" type="submit" name="name" value="FIGHT!">
+    <div class="center aligned twelve wide column">
+      <input class="ui button fightbutton" type="submit" name="name" value="FIGHT!">
     </div>
   </div>
 </main>

@@ -5,7 +5,9 @@ var game = require('../game/logic');
 
 
 router.get('/', function(req, res){
-  res.render('fight/select');
+  knex('users').then(function(result, err){
+    res.render('fight/select', {user: result});
+  })
 })
 
 router.post('/:user1/:user1_fighter/:user2/:user2_fighter', function(req, res){

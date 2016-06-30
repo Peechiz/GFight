@@ -25,6 +25,7 @@ body {
 
 .userbox {
   display: inline-block;
+  background-color: #F7901E;
   width: 200px; }
   .userbox ul {
     padding-left: 0; }
@@ -107,4 +108,9 @@ main {
   font-size: 60px;
   text-align: center; }
 
+
+.fightbutton{
+  width: 250px;
+  height: 75px;
+}
 /*# sourceMappingURL=style.css.map */
