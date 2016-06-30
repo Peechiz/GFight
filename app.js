@@ -7,7 +7,7 @@ var express = require('express'),
     logger = require('morgan'),
     methodOverride = require('method-override'),
     passport = require('passport'),
-    localStrategy = require('passport-local').Strategy,
+    LocalStrategy = require('passport-local').Strategy,
     pg = require('pg');
 
 require('locus');
@@ -16,6 +16,25 @@ require('dotenv').load();
 // view engine setup
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
+
+// config passport strat
+// passport.use(new LocalStrategy(
+//   function(username, password, done) {
+//      knex('users').where({ username: username }).first().then( user =>{
+// 			// user = user.toJSON();
+// 			var hash = user.password;
+// 			bcrypt.compare(password, hash, function(err,result){
+// 				console.log('result?',result);
+// 				if (!user) {
+// 					return done(null, false, { message: 'Incorrect username.' });
+// 				}
+// 				if (!result) {
+// 					return done(null, false, { message: 'Incorrect password.' });
+// 				}
+// 				return done(null, user);
+// 			});
+// 		})
+// }));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -27,7 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use(cookieSession({
   name: 'session',
-  keys: [process.env['SECRETKEY_1']]
+  keys: process.env['SECRETKEY_1']
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,7 +69,6 @@ passport.deserializeUser(function(obj, done){
 //     })
 //   })
 // }))
-
 
 // routes
 //var auth = require('./routes/auth.js');

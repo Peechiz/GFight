@@ -11,7 +11,7 @@
 <main>
   <div class="ui grid full_width">
     <div class="center aligned three column row">
-      <div class="six wide column">
+      <div class="eight wide column">
         <div class="userbox">
           <h2><%= user1.username %></h2>
           <img class="avatar" src="<%= user1.avatar_url %>">
@@ -28,24 +28,30 @@
           </ul>
         </div>
       </div>
-      <div class="four wide column">
-        <form class="ui form" action="/fight/<%= user1.id %>/<%= userFighter1.id %>" method="post">
-          <label>Choose your loser</label>
-          <input name="opponent" list="opponents">
-          <datalist id="opponents">
-            <% users.forEach(function(user){ %>
-              <option value="<%=user.id %>"><%= user.username%></option>
-            <% }); %>
-          </datalist>
-          <input type="submit" value="Submit">
-        </form>
+      <div class="eight wide column">
+        <div class="userbox">
+          <h2><%= user2.username %></h2>
+          <img class="avatar" src="<%= user2.avatar_url %>">
+          <ul class="user">
+            <li>Wins: <%= user2.wins %></li>
+            <li>Losses: <%= user2.losses %></li>
+            <li>Money: $<%= user2.money %></li>
+            <li>
+              <label class="ui big image label">
+                <img src="<%= userFighter2.img_url %>">
+                <%= userFighter2.slack_name %>
+              </label>
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
+    <div class="center aligned sixteen wide column">
+      <form action="/fight/<%= user1.id %>/<%= userFighter1.id %>/<%= user2.id%>/<%= userFighter2.id %>" method="POST">
+        <input class="ui button fightbutton" type="submit" name="name" value="FIGHT!">
+      </form>
     </div>
   </div>
 </main>
-
-
-
-
 
 <% include ../partials/tail %>

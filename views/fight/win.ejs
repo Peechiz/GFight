@@ -1,4 +1,4 @@
-<% include ../partials/head %>
+<% include ../partials/win_head %>
 
 <nav class="sidenav lb">
   <ul>
@@ -11,7 +11,7 @@
 
 <main>
   <div class="ui grid full_width">
-    <%- if(outcome.win){ %>
+    <% if(outcome.win){ %>
       <div class="centered one column row">
         <h1>WINNER</h1>
         <div class="userbox">
@@ -21,7 +21,7 @@
             <li>Wins: <%= user.wins %></li>
             <li>Losses: <%= user.losses %></li>
             <li>Money: $<%= user.money %></li>
-            <%- if(outcome.newWeapon){ %>
+            <% if(outcome.newWeapon){ %>
               <li>You received a new weapon!</li>
             <% } %>
           </ul>
