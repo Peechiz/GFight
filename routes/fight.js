@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var router = express.Router();
 var knex = require('../db/knex');
@@ -55,7 +57,12 @@ router.post('/:u1/:uf1', function(req, res){
   })
 })
 
-
+router.get('/:id/win', function(req, res){
+  userId = req.params.id;
+  knex('users').where('id', userId).then(function(result, err){
+    res.render('fight/win', {user: result});
+  })
+})
 
 router.post('/:user1/:user1_fighter/:user2/:user2_fighter', function(req, res){
   var userId1 = req.params.user1;

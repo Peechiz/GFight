@@ -1,3 +1,5 @@
+"use strict";
+
 var knex = require('../db/knex');
 
 // Player always receives random fighter
