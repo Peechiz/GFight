@@ -1,0 +1,43 @@
+<% include ../partials/head %>
+
+<nav class="sidenav lb">
+  <ul>
+    <li><a href="#" class="item">Home</a></li>
+    <li><a href="#" class="item">About</a></li>
+    <li><a href="#" class="item">Profile</a></li>
+    <li><a href="#" class="item">Logout</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="ui grid full_width">
+    <%- if(outcome.win){ %>
+      <div class="centered one column row">
+        <h1>WINNER</h1>
+        <div class="userbox">
+          <h2><%= user.username %></h2>
+          <img class="avatar" src="http://www.fillmurray.com/200/200">
+          <ul class="user">
+            <li>Wins: <%= user.wins %></li>
+            <li>Losses: <%= user.losses %></li>
+            <li>Money: $<%= user.money %></li>
+            <%- if(outcome.newWeapon){ %>
+              <li>You received a new weapon!</li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    <% }else{ %>
+      <div class="centered one column row">
+        <h1>Pathetic</h1>
+        <div class="userbox">
+          <h2><%= user.username %></h2>
+          <img class="avatar" src="http://www.fillmurray.com/200/200">
+        </div>
+      </div>
+    <% } %>
+  </div>
+</main>
+
+
+<% include ../partials/tail %>
