@@ -1,0 +1,57 @@
+<% include ../partials/fight_head %>
+
+<nav class="sidenav lb">
+  <ul>
+    <li><a href="#" class="item">Home</a></li>
+    <li><a href="#" class="item">About</a></li>
+    <li><a href="#" class="item">Profile</a></li>
+    <li><a href="#" class="item">Logout</a></li>
+  </ul>
+</nav>
+<main>
+  <div class="ui grid full_width">
+    <div class="center aligned three column row">
+      <div class="eight wide column">
+        <div class="userbox">
+          <h2><%= user1.username %></h2>
+          <img class="avatar" src="<%= user1.avatar_url %>">
+          <ul class="user">
+            <li>Wins: <%= user1.wins %></li>
+            <li>Losses: <%= user1.losses %></li>
+            <li>Money: $<%= user1.money %></li>
+            <li>
+              <label class="ui big image label">
+                <img src="<%= userFighter1.img_url %>">
+                <%= userFighter1.slack_name %>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="eight wide column">
+        <div class="userbox">
+          <h2><%= user2.username %></h2>
+          <img class="avatar" src="<%= user2.avatar_url %>">
+          <ul class="user">
+            <li>Wins: <%= user2.wins %></li>
+            <li>Losses: <%= user2.losses %></li>
+            <li>Money: $<%= user2.money %></li>
+            <li>
+              <label class="ui big image label">
+                <img src="<%= userFighter2.img_url %>">
+                <%= userFighter2.slack_name %>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="center aligned sixteen wide column">
+      <form action="fight/<%= user1.id %>/<%= userFighter1.id %>/<%= user2.id%>/<%= userFighter2.id %>" method="POST">
+        <input class="ui button fightbutton" type="submit" name="name" value="FIGHT!">
+      </form>
+    </div>
+  </div>
+</main>
+
+<% include ../partials/tail %>
