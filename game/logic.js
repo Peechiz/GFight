@@ -1,12 +1,6 @@
 "use strict";
-
 var knex = require('../db/knex');
 
-// Player always receives random fighter
-
-// fighter always has at least one random weapon
-
-// player may buy new fighter in exchange for money
 
 var game = {
 
@@ -99,16 +93,23 @@ var game = {
 
   // returns ID of randomly chosen opponent fighter
   getOpponentFighter: function(opponent_id){
-    knex('users_fighters')
-      .where({user_id:opponent_id})
-      .then( result => {
-        var numFighters = result.length;
-        console.log(opponent_id,'has',numFighters,'fighter(s)');
-        var randomFighter = Math.floor(Math.random() * numFighters);
-        console.log(result);
-        console.log('choosing',randomFighter,'index: fighter_id',result[randomFighter].fighter_id);
-        return result[randomFighter].fighter_id
+      var fighter = new Promise((resolve,reject)=>{
+        knex('users_fighters')
+        .where({user_id:opponent_id})
+        .then( result => {
+          var numFighters = result.length;
+          console.log(opponent_id,'has',numFighters,'fighter(s)');
+
+          var randomFighter = Math.floor(Math.random() * numFighters);
+
+          console.log(result);
+          console.log('choosing',randomFighter,'index: fighter_id',result[randomFighter].fighter_id);
+
+          resolve( result[randomFighter].fighter_id )
+        })
       })
+
+      return fighter
   },
 
 
@@ -116,167 +117,180 @@ var game = {
   //   returns {win: bool[, newWeapon: bool]}
   fight: function(user1,user1_fighter,user2,user2_fighter){
     // create a strength value for each fighter
-    var f1 = knex('fighters')
-    .join('weapons','fighters.weapon_id','=','weapons.id')
-    .where({'fighters.id':user1_fighter})
-    .first()
+    return new Promise((resolve,reject)=>{
+      resolve( function(){
+        var f1 = knex('fighters')
+        .join('weapons','fighters.weapon_id','=','weapons.id')
+        .where({'fighters.id':user1_fighter})
+        .first()
 
-    var f2 = knex('fighters')
-    .join('weapons','fighters.weapon_id','=','weapons.id')
-    .where({'fighters.id':user2_fighter})
-    .first()
+        var f2 = knex('fighters')
+        .join('weapons','fighters.weapon_id','=','weapons.id')
+        .where({'fighters.id':user2_fighter})
+        .first()
 
-    function str(obj){
-      return obj.wins + obj.strength
-    }
-
-    function getWinner(f1str,f2str){
-      var total = f1str + f2str;
-      var outcome = Math.floor(Math.random() * total);
-
-      if (outcome > f1str){
-        // attacker loss
-        console.log('LOSS');
-        return {
-          winner: user2,
-          loser: user1,
-          dead: user1_fighter,
-          alive: user2_fighter
-        };
-      }
-      else {
-        // attacker win
-        console.log('WIN');
-        return {
-          winner: user1,
-          loser: user2,
-          dead: user2_fighter,
-          alive: user1_fighter
-        };
-      }
-    }
-
-    Promise.all([f1,f2]).then(values => {
-      var f1str = str(values[0])
-      var f2str = str(values[1])
-
-      var fight = getWinner(f1str,f2str);
-
-      // ----- FIGHT RESULTS ----- //
-
-      // winner gains 25 gold
-      var gain25 = new Promise(function(resolve, reject) {
-        resolve(
-          knex('users')
-          .where({id:fight.winner})
-          .increment('money',25)
-          .then(result => {
-            console.log(result)
-          })
-        )
-      });
-
-      // loser gains 5 gold
-      var gain5 = new Promise((resolve,reject)=>{
-        resolve(
-          knex('users')
-          .where({id:fight.loser})
-          .increment('money',5)
-          .then(result => {
-            console.log(result);
-          })
-        )
-      })
-
-      // fighter +1 win
-      var incrementWins = new Promise((resolve, reject) =>{
-        resolve(
-          knex('fighters')
-          .where({id:fighter.alive})
-          .increment('wins',1)
-        )
-      });
-
-      // reset loser wins to zero
-      var resetWins = new Promise((resolve, reject)=>{
-        resolve(
-          knex('fighters')
-          .where({id:fighter.dead})
-          .update({
-            wins:0
-          })
-        )
-      });
-
-      // maybe fighter gets opponent fighter's weapon...
-      var weaponXfer = new Promise((resolve,reject)=>{
-        var coinflip = Math.random();
-        if (coinflip > .5){
-          knex('fighters')
-          .column('weapon_id')
-          .where({'id':fight.dead})
-          .first()
-          .then(result=>{
-            // get dead fighter's weapon
-            var weapon = result.weapon;
-            // give dead fighter a new weapon
-            this.assignWeapon(fight.dead)
-            // give weapon to victor (lol maybe)
-            knex('fighters')
-            .where({'id':fight.alive})
-            .update({
-              weapon_id: weapon
-            })
-            .then(result2 => {
-              console.log(result2);
-              resolve(true)
-            })
-          })
-        }
-        else {
-          resolve(false)
+        function str(obj){
+          return obj.wins + obj.strength
         }
 
-      })
+        function getWinner(f1str,f2str){
+          var total = f1str + f2str;
+          var outcome = Math.floor(Math.random() * total);
 
-      // losing fighter dies AKA remove users_fighters row
-      var killLoser = new Promise((resolve,reject)=>{
-        resolve(
-          knex('users_fighters')
-          .where({ 'user_id':fighter.loser,
-          'fighter_id': fighter.dead })
-          .delete()
-          .then(result=>{
-            console.log(result);
-          })
-        )
-      })
-
-      // assign new fighter
-      var newFighter = new Promise((resolve,reject)=>{
-        resolve(
-          this.getFighter(fighter.loser)
-        )
-      })
-
-      // return RESULT object
-      Promise.all([gain25,gain5,incrementWins,resetWins,weaponXfer,killLoser,newFighter])
-        .then(values => {
-          var xfer = values[4];
-          if (user1 === fight.winner){
+          if (outcome > f1str){
+            // attacker loss
+            console.log('LOSS');
             return {
-              win:true,
-              newWeapon:xfer
-            }
+              winner: user2,
+              loser: user1,
+              dead: user1_fighter,
+              alive: user2_fighter
+            };
           }
           else {
+            // attacker win
+            console.log('WIN');
             return {
-              win:false
-            }
+              winner: user1,
+              loser: user2,
+              dead: user2_fighter,
+              alive: user1_fighter
+            };
           }
-        })
+        }
 
-    }) // end Promise.all
+        Promise.all([f1,f2]).then(values => {
+          var f1str = str(values[0])
+          var f2str = str(values[1])
+
+          var fight = getWinner(f1str,f2str);
+
+          // ----- FIGHT RESULTS ----- //
+
+          // winner gains 25 gold
+          var gain25 = new Promise(function(resolve, reject) {
+            console.log('gaining 25');
+            resolve(
+              knex('users')
+              .where({id:fight.winner})
+              .increment('money',25)
+              .then(result => {
+                console.log(result)
+              })
+            )
+          });
+
+          // loser gains 5 gold
+          var gain5 = new Promise((resolve,reject)=>{
+            console.log('gaining 5');
+            resolve(
+              knex('users')
+              .where({id:fight.loser})
+              .increment('money',5)
+              .then(result => {
+                console.log(result);
+              })
+            )
+          })
+
+          // fighter +1 win
+          var incrementWins = new Promise((resolve, reject) =>{
+            console.log('increment Wins');
+            resolve(
+              knex('fighters')
+              .where({id:fighter.alive})
+              .increment('wins',1)
+            )
+          });
+
+          // reset loser wins to zero
+          var resetWins = new Promise((resolve, reject)=>{
+            console.log('reset wins');
+            resolve(
+              knex('fighters')
+              .where({id:fighter.dead})
+              .update({
+                wins:0
+              })
+            )
+          });
+
+          // maybe fighter gets opponent fighter's weapon...
+          var weaponXfer = new Promise((resolve,reject)=>{
+            var coinflip = Math.random();
+            if (coinflip > .5){
+              knex('fighters')
+              .column('weapon_id')
+              .where({'id':fight.dead})
+              .first()
+              .then(result=>{
+                // get dead fighter's weapon
+                var weapon = result.weapon;
+                // give dead fighter a new weapon
+                this.assignWeapon(fight.dead)
+                // give weapon to victor (lol maybe)
+                knex('fighters')
+                .where({'id':fight.alive})
+                .update({
+                  weapon_id: weapon
+                })
+                .then(result2 => {
+                  console.log('weapon xferred!');
+                  resolve(true)
+                })
+              })
+            }
+            else {
+              console.log('no weapon xfer');
+              resolve(false)
+            }
+
+          })
+
+          // losing fighter dies AKA remove users_fighters row
+          var killLoser = new Promise((resolve,reject)=>{
+            console.log('killing loser');
+            resolve(
+              knex('users_fighters')
+              .where({ 'user_id':fighter.loser,
+              'fighter_id': fighter.dead })
+              .delete()
+              .then(result=>{
+                console.log(result);
+              })
+            )
+          })
+
+          // assign new fighter
+          var newFighter = new Promise((resolve,reject)=>{
+            console.log('assinging new fighter');
+            resolve(
+              this.getFighter(fighter.loser)
+            )
+          })
+
+          // return RESULT object
+          Promise.all([gain25,gain5,incrementWins,resetWins,weaponXfer,killLoser,newFighter])
+          .then(values => {
+            var xfer = values[4];
+            if (user1 === fight.winner){
+              return {
+                win:true,
+                newWeapon:xfer
+              }
+            }
+            else {
+              return {
+                win:false
+              }
+            }
+          })
+
+        }) // end Promise.all
+
+      })
+
+    })
 
   },
 
