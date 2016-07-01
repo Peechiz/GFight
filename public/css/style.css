@@ -113,4 +113,14 @@ main {
   width: 250px;
   height: 75px;
 }
+
+p{
+  color: white;
+  font-size: 20px;
+}
+
+.bottom4{
+  color: #F7901E;
+  font-size: 15px;
+}
 /*# sourceMappingURL=style.css.map */

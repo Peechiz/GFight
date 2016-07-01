@@ -85,6 +85,7 @@ app.use('/fight', fight);
 
 
 // start server
-app.listen('9001',() => {
-  console.log('The Server is OVER 9000!!!');
+var port = process.env.PORT || 9001
+app.listen(port,() => {
+  console.log('The Server is ' + port);
 });
