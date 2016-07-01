@@ -1,0 +1,22 @@
+<% include ../partials/head %>
+
+<main>
+  <div class="ui grid full_width">
+      <div class="two column centered row">
+        <div class="six wide column">
+          <h2>Weapons</h2>
+          <% weapon.forEach(function(weapon){ %>
+            <li><%= weapon.weapon %></li>
+          <% }) %>
+        </div>
+        <div class="two wide column">
+          <h2>Strength</h2>
+          <% weapon.forEach(function(weapon){ %>
+            <li><%= weapon.strength %></li>
+          <% }) %>
+        </div>
+      </div>
+  </div>
+</main>
+
+<% include ../partials/tail %>
