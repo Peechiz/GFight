@@ -17,7 +17,6 @@ function loggedInUser(req, res, next){
 router.get('/', function(req, res){
   Users.orderBy('wins', 'desc').then(function(result, err){
     var user = result;
-    // eval(locus);
     knex('fighters').orderBy('wins', 'desc').then(function(result, err){
       var fighter = result;
       res.render('users/home', {user: user, fighter: fighter});
