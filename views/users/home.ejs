@@ -48,22 +48,10 @@
     </div>
     <div class="column ctr">
       <h3>Top Fighter</h3>
-      <%if(fighter[0]){%>
-        <ul>
-          <li><img src="<%= fighter[0].img_url %>" alt="" /></li>
-          <li><%= fighter[0].slack_name %></li>
-          <li><%= fighter[0].wins %></li>
-        </ul>
-      <%}%>
+
       <hr>
       <h3>Most Deaths</h3>
-      <%if(fighter[(fighter.length-1)]){%>
-        <ul>
-          <li><img src="<%= fighter[(fighter.length-1)].img_url %>" alt="" /></li>
-          <li><%= fighter[fighter.length-1].slack_name %></li>
-          <li><%= fighter[fighter.lenght-1].losses %></li>
-        </ul>
-      <%}%>
+
       <hr>
     </div>
   </div>
