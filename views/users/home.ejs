@@ -57,7 +57,7 @@
       <%}%>
       <hr>
       <h3>Most Deaths</h3>
-      <%if(fighter[0]){%>
+      <%if(fighter[(fighter.length-1)]){%>
         <ul>
           <li><img src="<%= fighter[(fighter.length-1)].img_url %>" alt="" /></li>
           <li><%= fighter[fighter.length-1].slack_name %></li>
